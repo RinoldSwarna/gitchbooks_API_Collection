@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "2404164f-8e6d-4152-8b4f-0c90cf5f9765",
+		"name": "gitchbooks chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28810476"
+	},
+	"item": [
+		{
+			"name": "orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"pm.globals.set(\"orderId\",response.orderId);\r",
+							"\r",
+							"//var jsonData = JSON.parse(responseBody);\r",
+							"//pm.environment\r",
+							"//pm.environment.set(\"NewId\", jsonData.orderId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": {{bookId}},\r\n  \"customerName\": \"{{customerName}}\"\r\n//\"bookId\": 3,\r\n//\"customerName\": \"holy\"\r\n\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Glitch}}/orders",
+					"host": [
+						"{{Glitch}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "fiction",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFullDetailsOfAnOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 \", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"checking foe same orderid\", ()=> {\r",
+							"    \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Glitch}}/orders/{{orderId}}",
+					"host": [
+						"{{Glitch}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(null);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Glitch}}/orders/{{orderId}}",
+					"host": [
+						"{{Glitch}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Glitch",
+			"value": "https://simple-books-api.glitch.me"
+		},
+		{
+			"key": "accessToken",
+			"value": "4e3398415cc67d86edd2af1f8bef3e5f18a950ac7d0dbf4d27e31d9c42f2f664",
+			"type": "string"
+		}
+	]
+}
